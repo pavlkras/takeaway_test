@@ -1,0 +1,32 @@
+version: '2'
+services:
+  employee-service:
+    build: ../app-employee-service
+    depends_on:
+      - postgres
+    container_name: "app-employee-service"
+    ports:
+      - "8080:9090"
+    environment:
+      - SPRING_PROFILES_ACTIVE=local
+      - POSTGRESQL_HOST=10.5.0.10
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.2
+  postgres:
+    image: postgres:9.6
+    environment:
+      POSTGRES_PASSWORD: "mysupersecretpassword"
+    ports:
+      - "5432:5432"
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.10
+
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+      config:
+       - subnet: 10.5.0.0/16
+         gateway: 10.5.0.1
