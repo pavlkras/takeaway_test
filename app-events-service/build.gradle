@@ -1,0 +1,10 @@
+bootJar {
+    launchScript()
+}
+
+jar {
+    baseName = 'app-events-service'
+}
+
+dependencies {
+}

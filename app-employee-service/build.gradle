@@ -1,0 +1,12 @@
+bootJar {
+    launchScript()
+    mainClassName="com.takeaway.test.employee.Application"
+}
+
+jar {
+    baseName = 'app-employee-service'
+}
+
+dependencies {
+    compile ("org.springframework.boot:spring-boot-starter")
+}
