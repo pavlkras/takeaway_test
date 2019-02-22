@@ -44,6 +44,7 @@ subprojects {
                 exclude "org.springframework.boot:spring-boot-starter-tomcat"
             }
             dependency ("org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}")
+            dependency ("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
 
             dependency ("org.springframework.cloud:spring-cloud-starter-stream-rabbit:${springCloudStreamVersion}")
 
