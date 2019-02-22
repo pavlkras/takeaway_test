@@ -4,17 +4,32 @@ services:
     build: ../app-employee-service
     depends_on:
       - postgres
+      - rabbitmq
     container_name: "app-employee-service"
     ports:
-      - "8080:9090"
+      - "9090:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=local
-      - POSTGRESQL_HOST=10.5.0.10
+      - SPRING_PROFILES_ACTIVE=docker
     networks:
       vpcbr:
-        ipv4_address: 10.5.0.2
+        ipv4_address: 10.5.0.5
+  events-service:
+    build: ../app-events-service
+    depends_on:
+      - mongo
+      - rabbitmq
+    container_name: "app-events-service"
+    ports:
+      - "9091:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.6
   postgres:
-    image: postgres:9.6
+    build: ../postgres
+    container_name: "postgres"
+    restart: always
     environment:
       POSTGRES_PASSWORD: "mysupersecretpassword"
     ports:
@@ -22,6 +37,16 @@ services:
     networks:
       vpcbr:
         ipv4_address: 10.5.0.10
+  rabbitmq:
+    image: rabbitmq:3.7.9-management
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.11
+  mongo:
+    image: mongo:latest
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.12
 
 networks:
   vpcbr:
