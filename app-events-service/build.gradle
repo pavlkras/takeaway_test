@@ -1,5 +1,6 @@
 bootJar {
     launchScript()
+    mainClassName="com.takeaway.test.event.Application"
 }
 
 jar {
@@ -7,4 +8,9 @@ jar {
 }
 
 dependencies {
+    compile project (':common')
+    
+    compile ("org.springframework.boot:spring-boot-starter")
+    compile ("org.springframework.boot:spring-boot-starter-web")
+    compile ("org.springframework.boot:spring-boot-starter-undertow")
 }
