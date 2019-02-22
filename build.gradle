@@ -1,6 +1,7 @@
 buildscript {
     ext {
         springBootVersion = '2.1.3.RELEASE'
+        springCloudStreamVersion = '2.1.1.RELEASE'
         springGradleDependencyManagementPlugin = '1.0.6.RELEASE'
         postgresqlJdbcVersion = '42.2.5'
         hikariCPVersion = '2.7.4'
@@ -43,6 +44,8 @@ subprojects {
                 exclude "org.springframework.boot:spring-boot-starter-tomcat"
             }
             dependency ("org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}")
+
+            dependency ("org.springframework.cloud:spring-cloud-starter-stream-rabbit:${springCloudStreamVersion}")
 
             dependency ("com.zaxxer:HikariCP:${hikariCPVersion}")
             dependency ("org.postgresql:postgresql:${postgresqlJdbcVersion}")

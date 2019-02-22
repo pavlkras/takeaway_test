@@ -27,7 +27,6 @@ public class EmployeesController {
     @Autowired
     private EmployeeService employeeService;
 
-
     @PostMapping(path = "/create",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
