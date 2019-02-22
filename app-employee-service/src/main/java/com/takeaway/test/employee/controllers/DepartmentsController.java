@@ -25,11 +25,15 @@ import javax.validation.Valid;
  */
 
 @RestController
-@RequestMapping("/departments")
+@RequestMapping("/department")
 public class DepartmentsController {
 
+    private final DepartmentService departmentService;
+
     @Autowired
-    private DepartmentService departmentService;
+    public DepartmentsController(DepartmentService departmentService) {
+        this.departmentService = departmentService;
+    }
 
     @PostMapping(path = "/create",
             consumes = MediaType.APPLICATION_JSON_VALUE,

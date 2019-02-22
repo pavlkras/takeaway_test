@@ -16,5 +16,5 @@ public interface Dao<E extends Entity, K> {
     E create(E entity) throws PersistenceException;
     E read(K key) throws PersistenceException;
     E update(E entity) throws PersistenceException;
-    E delete(K key) throws PersistenceException;
+    K delete(K key) throws PersistenceException;
 }

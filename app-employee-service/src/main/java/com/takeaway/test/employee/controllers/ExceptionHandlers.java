@@ -1,5 +1,7 @@
 package com.takeaway.test.employee.controllers;
 
+import com.takeaway.test.common.exceptions.ConstraintException;
+import com.takeaway.test.common.exceptions.DuplicateResourceException;
 import com.takeaway.test.common.exceptions.PersistenceException;
 import com.takeaway.test.common.exceptions.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +38,22 @@ public class ExceptionHandlers {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body("Resource not found");
+    }
+
+    @ExceptionHandler(DuplicateResourceException.class)
+    public ResponseEntity<String> duplicateResourceExceptionHandler(DuplicateResourceException e, WebRequest request) {
+        log.error("DuplicateResourceException, Request {}, Message {}", request.getDescription(true), e.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body("Non unique resource provided");
+    }
+
+    @ExceptionHandler(ConstraintException.class)
+    public ResponseEntity<String> constraintExceptionHandler(ConstraintException e, WebRequest request) {
+        log.error("ConstraintException, Request {}, Message {}", request.getDescription(true), e.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body("DB constraint violated");
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
