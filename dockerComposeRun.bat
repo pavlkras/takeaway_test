@@ -1,4 +1,4 @@
-call gradle assemble
+call gradle clean assemble
 cd compose
 call docker-compose rm -f && docker-compose pull
 call docker-compose --file docker-compose.yml build
