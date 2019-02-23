@@ -46,6 +46,7 @@ subprojects {
             }
             dependency ("org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}")
             dependency ("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
+            dependency ("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
 
             dependency ("org.springframework.cloud:spring-cloud-starter-stream-rabbit:${springCloudStreamVersion}")
 

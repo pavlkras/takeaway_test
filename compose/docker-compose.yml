@@ -48,7 +48,11 @@ services:
       vpcbr:
         ipv4_address: 10.5.0.11
   mongo:
-    image: mongo:latest
+    build: ../mongodb
+    container_name: "mongodb"
+    restart: always
+    ports:
+      - "27017:27017"
     networks:
       vpcbr:
         ipv4_address: 10.5.0.12
