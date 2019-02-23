@@ -1,10 +1,9 @@
 package com.takeaway.test.event.controllers;
 
-import com.takeaway.test.event.model.entities.EventLog;
-import com.takeaway.test.event.repositories.EventLogRepository;
+import com.takeaway.test.event.model.web.EventLogResponseItem;
+import com.takeaway.test.event.services.EventLogService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,11 +26,11 @@ import java.util.Collection;
 @RequestMapping("/events")
 @Api(value = "Events", description = "Operations related to Event logs")
 public class EventLogController {
-    private final EventLogRepository eventLogRepository;
+    private final EventLogService eventLogService;
 
     @Autowired
-    public EventLogController(EventLogRepository eventLogRepository) {
-        this.eventLogRepository = eventLogRepository;
+    public EventLogController(EventLogService eventLogService) {
+        this.eventLogService = eventLogService;
     }
 
     @ApiOperation(value = "List logs in reverse order")
@@ -40,8 +39,8 @@ public class EventLogController {
     })
     @GetMapping(value = "/{uuid}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Collection<EventLog>> listEventLogs(@ApiParam(value = "UUID of requested resource", required = true) @PathVariable String uuid) {
-        Sort sort = new Sort(Sort.Direction.DESC, "_id");
-        return ResponseEntity.ok(eventLogRepository.findEventLogsByUuid(uuid, sort));
+    public ResponseEntity<Collection<EventLogResponseItem>> listEventLogs(@ApiParam(value = "UUID of requested resource", required = true) @PathVariable String uuid) {
+        Collection<EventLogResponseItem> response = eventLogService.listEvents(uuid);
+        return ResponseEntity.ok(response);
     }
 }

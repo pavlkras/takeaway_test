@@ -5,3 +5,8 @@ jar {
 bootJar {
     enabled = false
 }
+
+
+dependencies {
+    compile ("com.fasterxml.jackson.core:jackson-databind")
+}

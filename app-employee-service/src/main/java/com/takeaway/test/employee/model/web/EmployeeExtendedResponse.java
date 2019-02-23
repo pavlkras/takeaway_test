@@ -1,5 +1,7 @@
 package com.takeaway.test.employee.model.web;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.takeaway.test.common.converters.LocalDateSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
@@ -35,6 +37,8 @@ public class EmployeeExtendedResponse extends EmployeeResponse {
     @ApiModelProperty(required = true,
             value = "employee's birthday in format {YYYY-MM-DD}",
             readOnly = true)
+    @JsonSerialize(using = LocalDateSerializer.class)
+
     private final LocalDate birthDay;
     @ApiModelProperty(required = false,
             value = "employee's department id",
