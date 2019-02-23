@@ -1,5 +1,6 @@
 package com.takeaway.test.employee.model.web;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.takeaway.test.common.converters.LocalDateSerializer;
 import io.swagger.annotations.ApiModel;
@@ -42,10 +43,12 @@ public class EmployeeExtendedResponse extends EmployeeResponse {
     @ApiModelProperty(required = false,
             value = "employee's department id",
             readOnly = true)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final Integer departmentId;
     @ApiModelProperty(required = false,
             value = "employee's department extended info",
             readOnly = true)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final DepartmentExtendedResponse department;
 
     @Builder(builderMethodName = "extendedBuilder")
