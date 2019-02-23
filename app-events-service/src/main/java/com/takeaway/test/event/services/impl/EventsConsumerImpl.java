@@ -29,10 +29,11 @@ public class EventsConsumerImpl implements EventsConsumer {
     @StreamListener(target = Sink.INPUT)
     @Override
     public void processEventMessage(EventMessage event) {
-        log.info("UUID: {}, Event: {}", event.getUuid(), event.getEvent());
-        eventLogRepository.save(EventLog.builder()
+        log.debug("UUID: {}, Event: {}", event.getUuid(), event.getEvent());
+        eventLogRepository.insert(EventLog.builder()
                 .uuid(event.getUuid())
                 .eventType(event.getEvent())
+                .timestamp(event.getTimestamp())
                 .build());
     }
 }

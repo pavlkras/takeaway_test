@@ -1,9 +1,10 @@
 package com.takeaway.test.common.messages;
 
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 /**
  * takeaway_test
@@ -20,4 +21,6 @@ import lombok.Setter;
 public class EventMessage {
     private String uuid;
     private EventType event;
+    @Builder.Default
+    private LocalDateTime timestamp = LocalDateTime.now();
 }

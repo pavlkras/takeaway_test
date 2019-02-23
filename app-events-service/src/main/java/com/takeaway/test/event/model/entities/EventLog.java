@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 /**
  * takeaway_test
  * <p>
@@ -20,4 +22,5 @@ import lombok.Setter;
 public class EventLog {
     private String uuid;
     private EventType eventType;
+    private LocalDateTime timestamp;
 }
