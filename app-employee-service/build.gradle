@@ -20,5 +20,7 @@ dependencies {
 
     compile ("com.zaxxer:HikariCP")
     compile ("org.postgresql:postgresql")
-
+    
+    compile ("io.springfox:springfox-swagger2")
+    compile ("io.springfox:springfox-swagger-ui")
 }
