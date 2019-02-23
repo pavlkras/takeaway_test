@@ -38,7 +38,6 @@ public class EmployeeExtendedResponse extends EmployeeResponse {
             value = "employee's birthday in format {YYYY-MM-DD}",
             readOnly = true)
     @JsonSerialize(using = LocalDateSerializer.class)
-
     private final LocalDate birthDay;
     @ApiModelProperty(required = false,
             value = "employee's department id",

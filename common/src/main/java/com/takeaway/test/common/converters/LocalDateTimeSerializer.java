@@ -20,6 +20,6 @@ import java.time.format.DateTimeFormatter;
 public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
     @Override
     public void serialize(LocalDateTime value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-        gen.writeString(value.format(DateTimeFormatter.ISO_DATE));
+        gen.writeString(value.format(DateTimeFormatter.ISO_DATE_TIME));
     }
 }
