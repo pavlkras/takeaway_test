@@ -38,8 +38,8 @@ public class EventLogServiceImpl implements EventLogService {
 
     @Override
     public Collection<EventLogResponseItem> listEvents(String uuid) {
-        Sort reverseOrder = new Sort(Sort.Direction.DESC, "_id");
-        Collection<EventLog> eventLogs = eventLogRepository.findEventLogsByUuid(uuid, reverseOrder);
+        Sort directOrder = new Sort(Sort.Direction.ASC, "_id");
+        Collection<EventLog> eventLogs = eventLogRepository.findEventLogsByUuid(uuid, directOrder);
         return eventLogs.stream()
                 .map(el -> EventLogResponseItem.builder()
                     .uuid(el.getUuid())
