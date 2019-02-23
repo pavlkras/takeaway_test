@@ -2,6 +2,7 @@ package com.takeaway.test.event.controllers;
 
 import com.takeaway.test.event.model.entities.EventLog;
 import com.takeaway.test.event.repositories.EventLogRepository;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +24,21 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("/events")
+@Api(value = "Events", description = "Operations related to Event logs")
 public class EventLogController {
-    @Autowired
-    private EventLogRepository eventLogRepository;
+    private final EventLogRepository eventLogRepository;
 
+    @Autowired
+    public EventLogController(EventLogRepository eventLogRepository) {
+        this.eventLogRepository = eventLogRepository;
+    }
+
+    @ApiOperation(value = "List logs in reverse order")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully fetched")
+    })
     @GetMapping("/{uuid}")
-    public ResponseEntity<Collection<EventLog>> listEventLogs(@PathVariable String uuid) {
+    public ResponseEntity<Collection<EventLog>> listEventLogs(@ApiParam(value = "UUID of requested resource", required = true) @PathVariable String uuid) {
         Sort sort = new Sort(Sort.Direction.DESC, "_id");
         return ResponseEntity.ok(eventLogRepository.findEventLogsByUuid(uuid, sort));
     }

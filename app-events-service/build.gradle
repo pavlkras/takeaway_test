@@ -16,4 +16,8 @@ dependencies {
     compile ("org.springframework.boot:spring-boot-starter-data-mongodb")
 
     compile ("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
+
+    compile ("io.springfox:springfox-swagger2")
+    compile ("io.springfox:springfox-swagger-ui")
+
 }
