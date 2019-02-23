@@ -5,6 +5,7 @@ import com.takeaway.test.event.repositories.EventLogRepository;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,7 +38,8 @@ public class EventLogController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully fetched")
     })
-    @GetMapping("/{uuid}")
+    @GetMapping(value = "/{uuid}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Collection<EventLog>> listEventLogs(@ApiParam(value = "UUID of requested resource", required = true) @PathVariable String uuid) {
         Sort sort = new Sort(Sort.Direction.DESC, "_id");
         return ResponseEntity.ok(eventLogRepository.findEventLogsByUuid(uuid, sort));
