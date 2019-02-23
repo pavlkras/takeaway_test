@@ -25,22 +25,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.csrf().disable();
+        http.httpBasic()
+            .and()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/department/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/department/**").hasRole("ADMIN")
-                .and()
-                .httpBasic()
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.csrf().disable()
+                .antMatchers(HttpMethod.DELETE, "/department/**").hasRole("ADMIN");
+        http
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/employee/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/employee/**").hasRole("ADMIN")
-                .and()
-                .httpBasic()
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .antMatchers(HttpMethod.DELETE, "/employee/**").hasRole("ADMIN");
     }
 
     @Autowired

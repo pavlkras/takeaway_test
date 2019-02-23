@@ -37,17 +37,14 @@ public class EmployeesController {
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 500, message = "Internal unexpected error")
     })
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "extended",
-                    value = "Allows to return extended response",
-                    defaultValue = "false",
-                    allowableValues = "true, false",
-                    dataType = "boolean")
-    })
     @PostMapping(path = "/create",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EmployeeResponse> createEmployee(@Valid @RequestBody CreateEmployeeRequest payload,
+                                                           @ApiParam(value = "Allows to return extended response",
+                                                                   defaultValue = "false",
+                                                                   allowableValues = "true, false",
+                                                                   type = "boolean")
                                                            @RequestParam(name = "extended", defaultValue = "false", required = false) Boolean returnExtended)
             throws PersistenceException {
         Employee employee = employeeService.createEmployee(payload);
@@ -76,19 +73,13 @@ public class EmployeesController {
             @ApiResponse(code = 404, message = "Resource you requested is not found"),
             @ApiResponse(code = 500, message = "Internal unexpected error")
     })
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "uuid",
-                    value = "UUID of requested resource",
-                    required = true),
-            @ApiImplicitParam(name = "extended",
-                    value = "Allows to return extended response",
-                    defaultValue = "false",
-                    allowableValues = "true, false",
-                    dataType = "boolean")
-    })
     @GetMapping(path = "/{uuid}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EmployeeExtendedResponse> getEmployee(@PathVariable String uuid,
+    public ResponseEntity<EmployeeExtendedResponse> getEmployee(@ApiParam(value = "UUID of requested resource", required = true) @PathVariable String uuid,
+                                                                @ApiParam(value = "Allows to return extended response",
+                                                                        defaultValue = "false",
+                                                                        allowableValues = "true, false",
+                                                                        type = "boolean")
                                                                 @RequestParam(name = "extended", defaultValue = "false", required = false) Boolean returnExtended)
             throws PersistenceException {
         Employee employee = employeeService.getEmployee(uuid, returnExtended);
@@ -142,13 +133,8 @@ public class EmployeesController {
             @ApiResponse(code = 404, message = "Resource you requested is not found"),
             @ApiResponse(code = 500, message = "Internal unexpected error")
     })
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "uuid",
-                    value = "UUID of requested resource",
-                    required = true)
-    })
     @DeleteMapping("/{uuid}")
-    public ResponseEntity<String> deleteEmployee(@PathVariable String uuid) throws PersistenceException {
+    public ResponseEntity<String> deleteEmployee(@ApiParam(value = "UUID of requested resource", required = true) @PathVariable String uuid) throws PersistenceException {
         String deletedUuid = employeeService.deleteEmployee(uuid);
 
         return ResponseEntity.ok(deletedUuid);

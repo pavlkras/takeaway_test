@@ -45,17 +45,14 @@ public class DepartmentsController {
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 500, message = "Internal unexpected error")
     })
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "extended",
-                    value = "Allows to return extended response",
-                    defaultValue = "false",
-                    allowableValues = "true, false",
-                    dataType = "boolean")
-    })
     @PostMapping(path = "/create",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DepartmentResponse> createDepartment(@Valid @RequestBody CreateDepartmentRequest payload,
+                                                               @ApiParam(value = "Allows to return extended response",
+                                                               defaultValue = "false",
+                                                               allowableValues = "true, false",
+                                                               type = "boolean")
                                                                @RequestParam(name = "extended", defaultValue = "false", required = false) Boolean returnExtended)
             throws PersistenceException {
         Department department = departmentService.createDepartment(payload);
@@ -76,15 +73,10 @@ public class DepartmentsController {
             @ApiResponse(code = 404, message = "Resource you requested is not found"),
             @ApiResponse(code = 500, message = "Internal unexpected error")
     })
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id",
-                    value = "Id of requested resource",
-                    required = true,
-                    dataType = "int")
-    })
+    @ResponseStatus(HttpStatus.CREATED)
     @GetMapping(path = "/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DepartmentExtendedResponse> getDepartment(@PathVariable int id)
+    public ResponseEntity<DepartmentExtendedResponse> getDepartment(@ApiParam(value = "Id of requested resource", required = true) @PathVariable int id)
             throws PersistenceException {
         Department department = departmentService.getDepartment(id);
 
