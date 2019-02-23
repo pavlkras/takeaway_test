@@ -43,7 +43,7 @@ public class EventLogServiceImpl implements EventLogService {
         return eventLogs.stream()
                 .map(el -> EventLogResponseItem.builder()
                     .uuid(el.getUuid())
-                    .eventType(el.getEventType())
+                    .action(el.getAction())
                     .timestamp(el.getTimestamp())
                     .build())
                 .collect(Collectors.toList());
@@ -52,10 +52,10 @@ public class EventLogServiceImpl implements EventLogService {
     @StreamListener(target = Sink.INPUT)
     @Override
     public void processEventMessage(EventMessage event) {
-        log.debug("UUID: {}, Event: {}", event.getUuid(), event.getEvent());
+        log.debug("UUID: {}, Action: {}", event.getUuid(), event.getAction());
         eventLogRepository.insert(EventLog.builder()
                 .uuid(event.getUuid())
-                .eventType(event.getEvent())
+                .action(event.getAction())
                 .timestamp(event.getTimestamp())
                 .build());
     }

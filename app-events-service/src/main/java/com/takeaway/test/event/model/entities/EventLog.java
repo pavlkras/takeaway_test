@@ -1,6 +1,6 @@
 package com.takeaway.test.event.model.entities;
 
-import com.takeaway.test.common.messages.EventType;
+import com.takeaway.test.common.messages.Action;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +21,6 @@ import java.time.LocalDateTime;
 @Builder
 public class EventLog {
     private String uuid;
-    private EventType eventType;
+    private Action action;
     private LocalDateTime timestamp;
 }

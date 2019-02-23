@@ -2,7 +2,7 @@ package com.takeaway.test.employee.services.impl;
 
 import com.takeaway.test.common.exceptions.PersistenceException;
 import com.takeaway.test.common.messages.EventMessage;
-import com.takeaway.test.common.messages.EventType;
+import com.takeaway.test.common.messages.Action;
 import com.takeaway.test.employee.dao.EmployeeDao;
 import com.takeaway.test.employee.model.entities.Employee;
 import com.takeaway.test.employee.model.web.CreateEmployeeRequest;
@@ -47,7 +47,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                             .departmentId(request.getDepartmentId())
                             .build());
 
-        sendEventMessage(employee.getUuid(), EventType.CREATE);
+        sendEventMessage(employee.getUuid(), Action.CREATE);
 
         return employee;
     }
@@ -68,7 +68,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                             .departmentId(request.getDepartmentId())
                             .build());
 
-        sendEventMessage(employee.getUuid(), EventType.UPDATE);
+        sendEventMessage(employee.getUuid(), Action.UPDATE);
 
         return employee;
     }
@@ -77,22 +77,22 @@ public class EmployeeServiceImpl implements EmployeeService {
     public String deleteEmployee(String uuid) throws PersistenceException {
         String deletedUuid = dao.delete(uuid);
 
-        sendEventMessage(deletedUuid, EventType.DELETE);
+        sendEventMessage(deletedUuid, Action.DELETE);
 
         return deletedUuid;
     }
 
-    private void sendEventMessage(String uuid, EventType eventType) {
+    private void sendEventMessage(String uuid, Action action) {
         EventMessage message = EventMessage.builder()
                 .uuid(uuid)
-                .event(eventType)
+                .action(action)
                 .build();
         boolean success = rabbitMqSource.output().send(MessageBuilder.withPayload(message).build());
 
         if (!success) {
-            log.warn("Failed to send message for employee '{}' with event type '{}'", uuid, eventType);
+            log.warn("Failed to send message for employee '{}' with action type '{}'", uuid, action);
         } else {
-            log.debug("Sent message for employee '{}' with event type '{}'", uuid, eventType);
+            log.debug("Sent message for employee '{}' with action type '{}'", uuid, action);
         }
     }
 }

@@ -9,7 +9,7 @@ package com.takeaway.test.common.messages;
  * @since 22/02/2019
  */
 
-public enum EventType {
+public enum Action {
     CREATE,
     UPDATE,
     DELETE;

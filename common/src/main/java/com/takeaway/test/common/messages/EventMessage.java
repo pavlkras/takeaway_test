@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Builder
 public class EventMessage {
     private String uuid;
-    private EventType event;
+    private Action action;
     @Builder.Default
     private LocalDateTime timestamp = LocalDateTime.now();
 }

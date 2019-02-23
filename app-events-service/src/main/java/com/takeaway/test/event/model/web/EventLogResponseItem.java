@@ -2,7 +2,7 @@ package com.takeaway.test.event.model.web;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.takeaway.test.common.converters.LocalDateTimeSerializer;
-import com.takeaway.test.common.messages.EventType;
+import com.takeaway.test.common.messages.Action;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
@@ -28,9 +28,9 @@ public class EventLogResponseItem {
             readOnly = true)
     private String uuid;
     @ApiModelProperty(required = true,
-            value = "Type of event",
+            value = "Type of action",
             readOnly = true)
-    private EventType eventType;
+    private Action action;
     @ApiModelProperty(required = true,
             value = "Timestamp of event",
             readOnly = true)
