@@ -38,7 +38,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Pavel's Test API for Takeaway.com")
-                .description("\"Spring Boot REST API for Employees and Departments")
+                .description("\"Spring Boot REST API for Employees and Departments\"")
                 .version("1.0")
                 .contact(new Contact("Pavel Krasnoshchok", "", "pavel.krasnoshchek@gmail.com"))
                 .build();

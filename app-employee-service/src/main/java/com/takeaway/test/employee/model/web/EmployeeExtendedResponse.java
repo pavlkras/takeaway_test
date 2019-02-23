@@ -1,5 +1,7 @@
 package com.takeaway.test.employee.model.web;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,12 +17,32 @@ import java.time.LocalDate;
  */
 
 @Getter
+@ApiModel(description = "Extended response model providing detailed employee info",
+        parent = EmployeeResponse.class)
 public class EmployeeExtendedResponse extends EmployeeResponse {
+    @ApiModelProperty(required = true,
+            value = "email of employee requested",
+            readOnly = true)
     private final String email;
+    @ApiModelProperty(required = true,
+            value = "employee's first name",
+            readOnly = true)
     private final String firstName;
+    @ApiModelProperty(required = true,
+            value = "employee's last name",
+            readOnly = true)
     private final String lastName;
+    @ApiModelProperty(required = true,
+            value = "employee's birthday in format {YYYY-MM-DD}",
+            readOnly = true)
     private final LocalDate birthDay;
+    @ApiModelProperty(required = false,
+            value = "employee's department id",
+            readOnly = true)
     private final Integer departmentId;
+    @ApiModelProperty(required = false,
+            value = "employee's department extended info",
+            readOnly = true)
     private final DepartmentExtendedResponse department;
 
     @Builder(builderMethodName = "extendedBuilder")

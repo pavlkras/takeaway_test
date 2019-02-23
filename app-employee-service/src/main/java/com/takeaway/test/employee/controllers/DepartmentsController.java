@@ -6,6 +6,7 @@ import com.takeaway.test.employee.model.web.DepartmentExtendedResponse;
 import com.takeaway.test.employee.model.web.CreateDepartmentRequest;
 import com.takeaway.test.employee.model.web.DepartmentResponse;
 import com.takeaway.test.employee.services.DepartmentService;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/department")
+@Api(value = "Departments", description = "Operations related to Departments only")
 public class DepartmentsController {
 
     private final DepartmentService departmentService;
@@ -35,6 +37,21 @@ public class DepartmentsController {
         this.departmentService = departmentService;
     }
 
+    @ApiOperation(value = "Create new department", response = DepartmentExtendedResponse.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successfully created"),
+            @ApiResponse(code = 400, message = "Request is invalid"),
+            @ApiResponse(code = 401, message = "You are not authorized to perform request"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 500, message = "Internal unexpected error")
+    })
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "extended",
+                    value = "Allows to return extended response",
+                    defaultValue = "false",
+                    allowableValues = "true, false",
+                    dataType = "boolean")
+    })
     @PostMapping(path = "/create",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -52,6 +69,19 @@ public class DepartmentsController {
                 .body(response);
     }
 
+    @ApiOperation(value = "Get department info", response = DepartmentExtendedResponse.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Resource reached"),
+            @ApiResponse(code = 400, message = "Request is invalid"),
+            @ApiResponse(code = 404, message = "Resource you requested is not found"),
+            @ApiResponse(code = 500, message = "Internal unexpected error")
+    })
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id",
+                    value = "Id of requested resource",
+                    required = true,
+                    dataType = "int")
+    })
     @GetMapping(path = "/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DepartmentExtendedResponse> getDepartment(@PathVariable int id)
