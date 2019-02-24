@@ -1,8 +1,8 @@
 package com.takeaway.test.common.messages;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -16,11 +16,16 @@ import java.time.LocalDateTime;
  */
 
 @Getter
-@Setter
 @Builder
+@JsonDeserialize(builder = EventMessage.EventMessageBuilder.class)
 public class EventMessage {
-    private String uuid;
-    private Action action;
+    private final String uuid;
+    private final Action action;
     @Builder.Default
-    private LocalDateTime timestamp = LocalDateTime.now();
+    private final LocalDateTime timestamp = LocalDateTime.now();
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class EventMessageBuilder {
+
+    }
 }
