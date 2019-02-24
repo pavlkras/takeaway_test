@@ -195,6 +195,16 @@ public class EmployeeDaoImplTest {
     }
 
     @Test(expected = ResourceNotFoundException.class)
+    public void update_nonExistingUuid_throwException() throws PersistenceException {
+        Department department = departmentDao.create(Department.builder().name("dept_name").build());
+        dao.update(Employee.builder()
+                .uuid("nonexisting_uuid")
+                .lastName("last_name_2")
+                .firstName("first_name_2")
+                .build());
+    }
+
+    @Test(expected = ResourceNotFoundException.class)
     public void delete_nonExistentUuid_throwException() throws PersistenceException {
         String uuid = "test_uuid_nonexistent";
         dao.delete(uuid);

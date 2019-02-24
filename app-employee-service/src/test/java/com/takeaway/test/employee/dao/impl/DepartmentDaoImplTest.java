@@ -48,6 +48,14 @@ public class DepartmentDaoImplTest {
         dao.create(department);
     }
 
+    @Test(expected = ConstraintException.class)
+    public void create_longName_throwException() throws PersistenceException {
+        Department department = Department.builder()
+                .name("testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest")
+                .build();
+        dao.create(department);
+    }
+
     @Test(expected = ResourceNotFoundException.class)
     public void read_nonExistentId_throwException() throws PersistenceException {
         Integer id = Integer.MAX_VALUE;
