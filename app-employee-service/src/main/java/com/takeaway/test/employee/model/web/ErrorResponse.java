@@ -1,5 +1,7 @@
 package com.takeaway.test.employee.model.web;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
@@ -17,6 +19,7 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @Builder
+@JsonDeserialize(builder = ErrorResponse.ErrorResponseBuilder.class)
 @ApiModel(description = "Response entity when error happens")
 public class ErrorResponse {
     @ApiModelProperty(required = true,
@@ -27,4 +30,8 @@ public class ErrorResponse {
             value = "Error readable message",
             readOnly = true)
     private final String message;
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class ErrorResponseBuilder {
+    }
 }
