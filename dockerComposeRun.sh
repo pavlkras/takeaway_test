@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-gradle assemble
+gradle clean assemble
 cd compose
 docker-compose rm -f && docker-compose pull
 docker-compose --file docker-compose.yml build
