@@ -60,6 +60,7 @@ subprojects {
             dependency ("io.springfox:springfox-swagger-ui:${swaggerVersion}")
 
             dependency ("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+            dependency ("org.springframework.cloud:spring-cloud-stream-test-support:${springCloudStreamVersion}")
             dependency ("org.springframework.security:spring-security-test:${springSecurityVersion}")
             dependency ("junit:junit:${jUnitVersion}")
         }

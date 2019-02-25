@@ -1,6 +1,8 @@
 package com.takeaway.test.employee.model.web;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.takeaway.test.common.converters.LocalDateSerializer;
 import io.swagger.annotations.ApiModel;
@@ -20,6 +22,7 @@ import java.time.LocalDate;
  */
 
 @Getter
+@JsonDeserialize(builder = EmployeeExtendedResponse.EmployeeExtendedResponseBuilder.class)
 @ApiModel(description = "Extended response model providing detailed employee info",
         parent = EmployeeResponse.class)
 public class EmployeeExtendedResponse extends EmployeeResponse {
@@ -60,5 +63,9 @@ public class EmployeeExtendedResponse extends EmployeeResponse {
         this.birthDay = birthDay;
         this.departmentId = departmentId;
         this.department = department;
+    }
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class EmployeeExtendedResponseBuilder {
     }
 }

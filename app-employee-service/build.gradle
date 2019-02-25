@@ -25,6 +25,7 @@ dependencies {
     compile ("io.springfox:springfox-swagger-ui")
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.cloud:spring-cloud-stream-test-support')
     testCompile('org.springframework.security:spring-security-test')
     testCompile('junit:junit')
 }
