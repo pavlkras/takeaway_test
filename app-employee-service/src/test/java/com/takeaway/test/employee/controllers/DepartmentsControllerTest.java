@@ -22,6 +22,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
@@ -35,6 +36,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("test")
 @WebAppConfiguration
+@Transactional
 public class DepartmentsControllerTest {
     private static final String URI = "/department";
     private MockMvc mvc;
@@ -60,6 +62,17 @@ public class DepartmentsControllerTest {
         request.setName("department");
         MvcResult result = mvc.perform(post(URI + "/create").contentType(MediaType.APPLICATION_JSON).content(mapToJson(request))).andReturn();
         assertEquals(201, result.getResponse().getStatus());
+    }
+
+    @WithMockUser(roles = "ADMIN")
+    @Test
+    public void createDepartment_authDoneExtended_success() throws Exception {
+        CreateDepartmentRequest request = new CreateDepartmentRequest();
+        request.setName("department");
+        MvcResult result = mvc.perform(post(URI + "/create").contentType(MediaType.APPLICATION_JSON).content(mapToJson(request)).param("extended", "true")).andReturn();
+        assertEquals(201, result.getResponse().getStatus());
+        DepartmentExtendedResponse response = mapFromJson(result.getResponse().getContentAsString(), DepartmentExtendedResponse.class);
+        assertEquals("department", response.getName());
     }
 
     @WithMockUser(roles = "ADMIN")
