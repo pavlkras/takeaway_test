@@ -6,7 +6,7 @@ Code challenge for TakeAway, Berlin
 
 Use [git](https://git-scm.com/) to clone the project
 ###Build tools
-Project is based on [Java 8](https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase8-2177648.html) and [Gradle 4.+](https://gradle.org/releases/)
+Project is based on [Java 8](https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase8-2177648.html) and [Gradle 4.4+](https://gradle.org/releases/)
 
 ###Deployment tools
 Composing with [docker-compose](https://docs.docker.com/compose/install/)
@@ -15,7 +15,7 @@ Running on [Docker](https://www.docker.com/products/docker-desktop) containers
 
 ## Usage
 
-Make sure Gradle 4.+, Docker, docker-compose are installed on your machine.
+Make sure Gradle 4.4+, Docker, docker-compose are installed on your machine.
 
 Please use scripts to build and run project:
 * Windows: ``dockerComposeRun.bat``
@@ -45,7 +45,7 @@ When running on Docker:
 * [events-service](http://localhost:9090/swagger-ui.html) on port 9091
 
 ## Tests
-Make sure Java 8, Gradle 4.+, Docker, docker-compose are installed on your machine for tests.
+Make sure Java 8, Gradle 4.4+, Docker, docker-compose are installed on your machine for tests.
 
 Run script:
 * Windows: ``dockerComposeTest.bat``
@@ -81,3 +81,6 @@ docker-compose --file docker-compose.yml build mongo postgres rabbitmq
 docker-compose --file docker-compose.yml up -d mongo postgres rabbitmq
 ```
 and use Spring Boot profile ``local`` to connect to containers
+
+### Contact
+[Pavel Krasnoshchok](mailto:pavel.krasnoshchek@gmail.com)
