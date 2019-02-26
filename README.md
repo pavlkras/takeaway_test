@@ -75,9 +75,9 @@ Please install and setup databases and message broker:
 * [MongoDB 4.+](https://www.mongodb.com/download-center)
 * [RabbitMQ](https://www.rabbitmq.com/download.html) 
 
-or use prepared Docker images from ``compose`` directory:
+Or use prepared Docker images from ``compose`` directory:
 ```cmd
 docker-compose --file docker-compose.yml build mongo postgres rabbitmq
 docker-compose --file docker-compose.yml up -d mongo postgres rabbitmq
 ```
-and add to application command line Spring Boot profile ``local``
+and use Spring Boot profile ``local`` to connect to containers
